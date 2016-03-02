@@ -1,0 +1,55 @@
+elastic:
+  image: elasticsearch
+  expose:
+    - "9200"
+  ports:
+    - "9200:9200"
+  volumes:
+    - ./elk/data:/usr/share/elasticsearch/data
+
+log:
+  image: logstash
+  command: logstash -f /etc/logstash/
+  expose:
+    - "28777"
+  ports:
+    - "28777:28777"
+  volumes:
+    - ./elk/logstash:/etc/logstash
+  links:
+    - elastic:${ELASTIC_HOST}
+
+kibana:
+  image: kibana
+  env_file: .env
+  ports:
+    - "5601:5601"
+  links:
+    - elastic:${ELASTIC_HOST}
+  volumes:
+    - ./elk/node_modules/source-map:/opt/kibana/node_modules/source-map
+    - ./elk/kibana/optimize:/opt/kibana/optimize
+
+db:
+  image: postgres
+  environment:
+    POSTGRES_USER: ${BASE_DB_USER}
+    POSTGRES_PASSWORD: ${BASE_DB_PWD}
+  expose:
+    - "5432"
+  ports:
+    - "5432:5432"
+
+# user-api:
+#  build:
+#    context: .
+#    dockerfile: node_modules/@tetris/user-api/Dockerfile
+#  env_file: .env
+#  command: npm run start-dev
+#  volumes:
+#    - ./node_modules:/opt/app/node_modules
+#  ports:
+#    - "4000:4000"
+#  links:
+#    - log:${LOGSTASH_HOST}
+#    - db:${BASE_DB_HOST}

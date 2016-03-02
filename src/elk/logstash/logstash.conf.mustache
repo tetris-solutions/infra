@@ -1,0 +1,13 @@
+input {
+  tcp {
+    port => 28777
+    type => "sample"
+  }
+}
+
+output {
+  stdout { }
+  elasticsearch { hosts => [ "{{ELASTIC_HOST}}:9200" ] }
+}
+
+filter { json { source => "message" } }

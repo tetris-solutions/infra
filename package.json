@@ -1,0 +1,11 @@
+{
+  "name": "@tetris/infra",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "glob": "^7.0.0",
+    "mustache": "^2.2.1"
+  },
+  "scripts": {
+    "build": "./build.js"
+  }
+}

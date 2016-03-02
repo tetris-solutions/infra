@@ -1,0 +1,13 @@
+.idea
+*.log
+
+node_modules
+lib
+*.env
+!example.env
+
+.npmrc
+elk/**/*.*
+elk/kibana/optimize
+
+!.gitkeep
