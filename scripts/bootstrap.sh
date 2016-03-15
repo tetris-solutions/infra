@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+git clone git@github.com:tetris-solutions/infra.git
+
+cd infra
+npm install
+
+if [ -f .env ]
+then
+  echo "Arquivo .env encontrado."
+else
+  
+  echo "Por favor, visite a seguinte url:"
+  echo "http://bit.ly/tetris-dot-env"
+  echo "salvando o arquivo na raiz do projeto 'infra'."
+  
+  while true; do
+    read -p "Você já baixo o arquivo e editou os valores necessários?" sn
+    case $sn in
+      [Ss]* ) break;;
+      [Nn]* ) exit 1;;
+      * ) echo "Opção inválida.";;
+    esac
+  done
+  
+fi
+
+./scripts/build.js
+
+source bash.env
+
+echo "Instalando..."
+
+# Download projects from github
+git clone git@github.com:tetris-solutions/main-front.git ../main-front &
+git clone git@github.com:tetris-solutions/user-api.git ../user-api &
+wait
+echo 'Cloned projects...'
+
+# host management
+sudo npm install --global hostile
+
+# Install project dependencies
+(cd ../user-api && npm install) &
+(cd ../main-front && npm install) &
+wait
+echo 'Installed projects'
+
+./scripts/setup.js
+
+docker-compose up &
+(cd ../user-api && sleep 5 && exec npm run start-dev) &
+(cd ../main-front && exec npm start) &
+
+wait
+echo "Servidor iniciado, você pode visitar:"
+echo "http://{$FRONT_URL}"

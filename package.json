@@ -3,9 +3,10 @@
   "dependencies": {
     "dotenv": "^2.0.0",
     "glob": "^7.0.0",
-    "mustache": "^2.2.1"
+    "mustache": "^2.2.1",
+    "shelljs": "^0.6.0"
   },
   "scripts": {
-    "build": "./build.js"
+    "build": "./scripts/build.js"
   }
 }
