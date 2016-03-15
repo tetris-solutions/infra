@@ -4,9 +4,10 @@ git clone git@github.com:tetris-solutions/infra.git
 
 cd infra
 
+echo 'npm login'
 if [ -f ~/.npmrc ]
 then
-  echo 'npm is logged in'
+  echo 'npm is already logged in'
 else
   npm login
 fi
@@ -23,7 +24,7 @@ else
   echo "salvando o arquivo na raiz do projeto 'infra'."
   
   while true; do
-    read -p "Você já baixo o arquivo e editou os valores necessários?" sn
+    read -p "Você já baixo o arquivo e editou os valores necessários? [S/N]: " sn
     case $sn in
       [Ss]* ) break;;
       [Nn]* ) exit 1;;
@@ -33,9 +34,7 @@ else
   
 fi
 
-./scripts/build.js
-
-source bash.env
+./scripts/build.js && source bash.env
 
 echo "Instalando..."
 
