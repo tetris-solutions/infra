@@ -3,6 +3,14 @@
 git clone git@github.com:tetris-solutions/infra.git
 
 cd infra
+
+if [ -f ~/.npmrc ]
+then
+  echo 'npm is logged in'
+else
+  npm login
+fi
+
 npm install
 
 if [ -f .env ]
@@ -11,7 +19,7 @@ then
 else
   
   echo "Por favor, visite a seguinte url:"
-  echo "http://bit.ly/tetris-dot-env"
+  echo "http://bit.ly/tetris-dotenv"
   echo "salvando o arquivo na raiz do projeto 'infra'."
   
   while true; do
@@ -54,4 +62,4 @@ docker-compose up &
 
 wait
 echo "Servidor iniciado, você pode visitar:"
-echo "http://{$FRONT_URL}"
+echo $FRONT_URL
