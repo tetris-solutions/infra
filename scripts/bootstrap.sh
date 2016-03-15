@@ -34,7 +34,8 @@ else
   
 fi
 
-./scripts/build.js && source bash.env
+npm run build
+source ./bash.env
 
 echo "Instalando..."
 
@@ -53,7 +54,9 @@ sudo npm install --global hostile
 wait
 echo 'Installed projects'
 
-./scripts/setup.js
+npm run setup
+
+chmod -R 777 elk
 
 docker-compose up &
 (cd ../user-api && sleep 5 && exec npm run start-dev) &
