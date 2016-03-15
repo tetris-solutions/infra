@@ -56,10 +56,19 @@ echo 'Installed projects'
 
 npm run setup
 
+# workaround for kibana source-map dependency
+cd elk
+npm install
+cd ..
+
 chmod -R 777 elk
 
+docker-compose create
+
+sudo chmod -R 777 elk
+
 docker-compose up &
-(cd ../user-api && sleep 5 && exec npm run start-dev) &
+(cd ../user-api && sleep 15 && exec npm run start-dev) &
 (cd ../main-front && exec npm start) &
 
 wait
