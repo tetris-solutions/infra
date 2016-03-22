@@ -5,11 +5,7 @@ var glob = require('glob')
 var fs = require('fs')
 var writeBashEnv = require('./helpers/bash-env').writeBashEnv
 var writeLaravelEnv = require('./helpers/laravel-env').writeLaravelEnv
-
-function read (f) {
-  return fs.readFileSync(f, {encoding: 'utf8'})
-}
-
+var read = require('./helpers/read')
 var env = dotenv.parse(read('.env'))
 var mustache = require('mustache')
 

@@ -1,18 +1,22 @@
 var fs = require('fs')
 var path = require('path')
+var read = require('./read')
 
 exports.writeBashEnv = function writeBashEnv (vars) {
-  var bashEnvContent = '#!/usr/bin/env bash\n'
+  var envContent = '#!/usr/bin/env bash\n'
+  var projectRoot = path.resolve(__dirname, '..', '..')
+  
+  envContent += read(path.resolve(projectRoot, 'banner.txt'))
 
   for (var key in vars) {
     if (vars.hasOwnProperty(key)) {
-      bashEnvContent += "export " + key + "='" + vars[key] + "'\n"
+      envContent += "export " + key + "='" + vars[key] + "'\n"
     }
   }
 
-  var destPath = path.resolve(__dirname, '..', '..', 'bash.env')
+  var destPath = path.resolve(projectRoot, 'bash.env')
 
-  fs.writeFile(destPath, bashEnvContent,
+  fs.writeFile(destPath, envContent,
     function (err) {
       if (err) throw err
     })
