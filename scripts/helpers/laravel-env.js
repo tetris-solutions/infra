@@ -18,7 +18,6 @@ exports.writeLaravelEnv = function writeLaravelEnv (vars) {
     QUEUE_DRIVER: 'sync'
   }
 
-
   var envContent = ''
 
   for (var key in env) {
