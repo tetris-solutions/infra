@@ -7,7 +7,8 @@ lib
 !example.env
 
 .npmrc
-elk/**/*.*
-elk/kibana/optimize
+/elk/**/*.*
+/elk/kibana/optimize
+/nginx
 
 !.gitkeep
