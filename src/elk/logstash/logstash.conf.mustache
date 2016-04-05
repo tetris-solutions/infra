@@ -3,6 +3,11 @@ input {
     port => 28777
     type => "sample"
   }
+  http {
+    port => 3332
+    user => {{LOGSTASH_HTTP_USER}}
+    password => {{LOGSTASH_HTTP_PWD}}
+  }
 }
 
 output {
