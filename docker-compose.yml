@@ -12,8 +12,10 @@ log:
   command: logstash -f /etc/logstash/
   expose:
     - "28777"
+    - "3332"
   ports:
     - "28777:28777"
+    - "3332:3332"
   volumes:
     - ./elk/logstash:/etc/logstash
   links:
