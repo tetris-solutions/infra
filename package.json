@@ -1,5 +1,9 @@
 {
   "name": "@tetris/infra",
+  "version": "0.0.0",
+  "bin": {
+    "build-env": "./scripts/build.js"
+  },
   "dependencies": {
     "dotenv": "^2.0.0",
     "glob": "^7.0.0",
